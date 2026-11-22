@@ -1,0 +1,30 @@
+
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>{{ titulo }}</h2>
+    <p>Consulta y actualiza tu información personal.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for campo in form %}
+            <div class="mb-3">
+                <label class="form-label">{{ campo.label }}</label>
+                {{ campo }}
+
+                {% if campo.errors %}
+                    <div class="text-danger">
+                        {{ campo.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">
+            {{ boton }}
+        </button>
+    </form>
+</div>
+{% endblock %}

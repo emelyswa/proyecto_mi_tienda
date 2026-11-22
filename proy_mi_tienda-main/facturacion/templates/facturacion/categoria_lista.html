@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+    <h1 class="h3 titulo-pagina m-0">{{ titulo }}</h1>
+    <a href="{% url 'facturacion:categoria_crear' %}" class="btn btn-verde">+ Nueva categoría</a>
+</div>
+
+<form method="get" class="d-flex gap-2 mb-3">
+    <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Buscar categoría...">
+    <button type="submit" class="btn btn-outline-secondary">Buscar</button>
+</form>
+
+<div class="tarjeta p-0 table-responsive">
+    <table class="table table-hover align-middle m-0">
+        <thead><tr><th>Categoría</th><th>Descripción</th><th class="text-center">Productos</th><th>Estado</th><th class="text-end">Acciones</th></tr></thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td class="fw-semibold">{{ categoria.nombre }}</td>
+                <td class="text-muted">{{ categoria.descripcion|default:"—"|truncatechars:60 }}</td>
+                {# num_productos lo calculó get_queryset con annotate(Count). Equivale a {{ categoria.productos.count }} pero en 1 sola consulta #}
+                <td class="text-center"><span class="badge bg-light text-dark border">{{ categoria.num_productos }}</span></td>
+                <td>{% if categoria.activo %}<span class="badge bg-success">Activa</span>{% else %}<span class="badge bg-secondary">Inactiva</span>{% endif %}</td>
+                <td class="text-end text-nowrap">
+                    <a href="{% url 'facturacion:categoria_editar' categoria.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                    <a href="{% url 'facturacion:categoria_eliminar' categoria.pk %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center text-muted py-4">No hay categorías.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<p class="text-muted small mt-2">Total: {{ page_obj.paginator.count }} categoría(s)</p>
+
+{% if page_obj.has_other_pages %}
+<nav class="mt-3"><ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ q|urlencode }}">« Anterior</a></li>
+    {% endif %}
+    <li class="page-item disabled"><span class="page-link">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ q|urlencode }}">Siguiente »</a></li>
+    {% endif %}
+</ul></nav>
+{% endif %}
+{% endblock %}

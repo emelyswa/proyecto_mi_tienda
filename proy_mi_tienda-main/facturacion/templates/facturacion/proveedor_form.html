@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <h2>{{ titulo|default:"Registrar proveedor" }}</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            {{ form.nombre }}
+            {{ form.nombre.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Apellido</label>
+            {{ form.apellido }}
+            {{ form.apellido.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">RUC</label>
+            {{ form.ruc }}
+            {{ form.ruc.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono de contacto</label>
+            {{ form.contacto }}
+            {{ form.contacto.errors }}
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Logo</label>
+            {{ form.logo }}
+            {{ form.logo.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
+
+        <a href="{% url 'facturacion:proveedor_lista' %}" class="btn btn-secondary">
+            Cancelar
+        </a>
+    </form>
+</div>
+{% endblock %}

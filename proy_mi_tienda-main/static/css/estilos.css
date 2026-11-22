@@ -1,0 +1,129 @@
+:root {
+  --acento: #8061bc;          /* antes --verde */
+  --acento-claro: #8566BE;    /* antes --verde-claro (hover) */
+  --rosa: #F3CAEE;            /* antes --amarillo */
+  --azul: #8E9BD8;
+  --morado: #B08AD0;
+  --fondo: #FCF5FD;
+  --texto: #2E2650;
+  --borde: #EBDDF0;
+}
+
+body {
+  background-color: var(--fondo);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }                                   /* el pie queda siempre abajo */
+
+.barra { background-color: var(--acento); }
+.barra .text-warning { color: var(--rosa) !important; }  /* "Tienda" y usuario en rosa */
+.barra .btn-warning {                                     /* botón "Crear cuenta" */
+  background-color: var(--rosa);
+  border-color: var(--rosa);
+  color: var(--acento);
+}
+.barra .btn-warning:hover { background-color: #fff; border-color: #fff; color: var(--acento); }
+
+.titulo-pagina { border-left: 6px solid var(--morado); padding-left: 12px; }
+
+.tarjeta {
+  background: white;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(107, 79, 163, .10);
+}
+
+.table thead th { background-color: var(--acento); color: white; }
+
+.btn-verde { background-color: var(--acento); color: white; border-radius: 999px; }
+.btn-verde:hover { background-color: var(--acento-claro); color: white; }
+
+.pie { background-color: var(--rosa); color: var(--acento); }
+
+/* ---------- Formularios de login y registro ---------- */
+.form-auth input[type="text"], .form-auth input[type="password"] {
+    display: block; width: 100%; padding: .5rem .75rem; border: 1px solid var(--borde); border-radius: .75rem;
+}
+.form-auth input:focus {
+    outline: none; border-color: var(--morado); box-shadow: 0 0 0 .25rem rgba(176, 138, 208, .28);
+}
+.form-auth .ayuda { font-size: .8rem; color: #6E6690; }
+
+/* ---------- Imágenes de productos y logos ---------- */
+/* ---------- Logos de productos ---------- */
+.miniatura {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;      /* muestra el logo completo, sin recortar */
+  background: #fff;
+  padding: 6px;             /* respiro alrededor del logo */
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+}
+
+.miniatura.vacia {
+  display: grid;
+  place-items: center;
+  font-size: .7rem;
+  color: #6E6690;
+  background: var(--fondo);
+}
+
+/* Foto de la página de detalle */
+.foto-grande {
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  background: #fff;
+  padding: 12px;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+}
+.table td img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;      /* se ve completo, sin recortar */
+  background: #fff;
+  padding: 6px;
+  border: 1px solid var(--borde);
+  border-radius: 12px;
+  display: block;
+}
+
+.table td, .table th { vertical-align: middle; }
+/* ---------- Factura ---------- */
+.totales td { border: 0; }
+@media print { .barra, .pie, .no-imprimir { display: none !important; } .tarjeta { box-shadow: none; } }
+
+/* ---------- Barra: enlaces más legibles ---------- */
+.barra .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, .92);
+  border-radius: 999px;
+  padding: .4rem .9rem;
+  transition: background .2s;
+}
+.barra .navbar-nav .nav-link:hover,
+.barra .navbar-nav .nav-link:focus {
+  color: #fff;
+  background: rgba(255, 255, 255, .18);
+}
+.barra .navbar-text { color: rgba(255, 255, 255, .92); }
+.barra .btn-outline-light { border-radius: 999px; }
+.barra .btn-outline-light:hover { background: #fff; color: var(--acento); }
+
+/* ---------- Tarjetas con más personalidad ---------- */
+.tarjeta {
+  border-top: 4px solid var(--morado);
+}
+
+/* Cada tarjeta del panel con su propio color de franja */
+.row > :nth-child(1) > .tarjeta { border-top-color: var(--azul); }
+.row > :nth-child(2) > .tarjeta { border-top-color: var(--morado); }
+.row > :nth-child(3) > .tarjeta { border-top-color: #E79AD8; }
+
+/* Números grandes en morado */
+.tarjeta .fw-bold { color: var(--acento); }

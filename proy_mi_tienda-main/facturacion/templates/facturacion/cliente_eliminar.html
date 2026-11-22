@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+
+{% block contenido %}
+<div class="container mt-4">
+    <div class="card p-4">
+        <h2>Eliminar cliente</h2>
+
+        <p>
+            ¿Estás seguro de que deseas eliminar al cliente
+            <strong>{{ cliente.nombres }} {{ cliente.apellidos }}</strong>?
+        </p>
+
+        <p><strong>Cédula:</strong> {{ cliente.cedula }}</p>
+        <p><strong>Correo:</strong> {{ cliente.email|default:"No registrado" }}</p>
+        <p><strong>Teléfono:</strong> {{ cliente.telefono|default:"No registrado" }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger">
+                Sí, eliminar
+            </button>
+
+        <a href="{% url 'facturacion:cliente_lista' %}" class="btn btn-secondary">
+            Cancelar
+        </a>
+        </form>
+    </div>
+</div>
+{% endblock %}
